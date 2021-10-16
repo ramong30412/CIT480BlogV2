@@ -1,0 +1,9 @@
+---
+layout: post
+title: 'AWS Wordpress!'
+date: '2021-10-15 14:25:00'
+categories: AWS
+---
+  This week we will help you guys get started on an aws hosted website. What are hosted websites? Why would we use aws? Why do we care? Hosted websites are websites built on a service that host all of its important/functioning files [namecheap site](https://www.namecheap.com/hosting/what-is-web-hosting-definition/). We should aws because they allow a lot of freedom when it comes to the platform we use to host (cough cough wordpress) and allows for us to scale up in the future. We care because aws is a reliable source for hosting but unless we know all that they offer we wont know if it's our best option.
+
+  There are a few ways to build wordpress websites using aws one of them is using a service called lightsail.The first thing you do is navigate to lightsail in the services tab, you might need to make an account within the service. Then you create a wordpress instance and choose its location/region as well as the OS for it. Once you've done that then you have to pick a plan for instance the cheapest one is 3.5$ and pre selected options range from that to 40$. For your first website you will be fine with the 3.5  option and you can always scale up if you start getting more web traffic. Then you will need to find your wordpress password so click on ssh icon and run this command, *cat $HOME/bitnami_application_password*, write it down/copy to clipboard. Log onto your website and start customizing it with plugins, if you shut down the instance and start it back up the ip address will change to fix this we need to set a static ip address. Another option you will need to consider is getting a domain name, you can do this using route 53 or another service like namecheap.
