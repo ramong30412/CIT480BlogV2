@@ -1,0 +1,41 @@
+---
+layout: post
+title: "Making a container from DockerImage"
+date: 2021-09-30 10:01:30 -0000
+categories: Docker
+---
+
+    This post relates to our assignment for the week in which we are tasked to build a DockerFile that will download zipped files, create a directory, and unzip files. To follow along we must first know what a Dockerfile is. A dockerfile is a text based file that essentially has the blueprints or instructions for docker to build a docker image. A docker image is essentially the same as your dockerfile except that it can be used by docker to spin up a container. Why does this matter? Well having dockerfiles letsyou set up images that you customize, which in turn leads to you being able to easily deploy containers that have exactly what you need no more apt-get installs for you!
+When building my dockerfile I followed along to [examples from the source itself!](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/). There are a few special instructions codes you can give your file the four most common ones we use are: 
+
+1. FROM
+2. COPY
+3. RUN
+4. CMD
+
+    FROM allows us to define an OS for the image
+    COPY allows us to add files from our current directory
+    RUN allows us to run processes 
+    CMD allows us to specify commands to our container 
+
+  Here’s an example of what a dockerfile could look like, I wrote this one for a class assignment. 
+        FROM ubuntu:18.04
+
+        EXPOSE 9090
+
+        RUN apt-get update && apt-get install -y \ 
+   	    curl \ 
+  	    wget \
+   	    nano
+
+        RUN mkdir packages 
+        RUN wget https://github.com/prometheus/prometheus/releases/download/v2.8.0/prometheus-2.8.0.linux-amd64.tar.gz 
+        RUN tar xvfz prometheus-2.8.0.linux-amd64.tar.gz
+
+        RUN wget https://github.com/prometheus/node_exporter/releases/download/v1.2.2/node_exporter-1.2.2.linux-amd64.tar.gz 
+        RUN tar xvfz node_exporter-1.2.2.linux-amd64.tar.gz
+
+        CMD tail -f /dev/null
+
+  Once we have a built dockerfile like the one above all we have to do is run a few docker commands and we’ll have a brand new container built from our image. We do a docker, *docker build -t name-of-image .*   .**Docker build** turns the docker file into an image, the **-t** tages the image or grants it a name, and the **.** at the end tellsit to search for the docker image inside of  our current directory. One we run this command out docker image should be built, we can check this by running the *docker image* command on our terminal to see all of our currently built images.Once we confirm our image is there we run a **docker run image-name** and it will spring up and  name a container for us.  
+
